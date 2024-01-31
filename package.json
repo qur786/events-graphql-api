@@ -1,0 +1,14 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "Unlicense",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.2",
+    "@types/node": "^20.11.13",
+    "typescript": "^5.3.3"
+  }
+}
