@@ -2,7 +2,8 @@ import express from "express";
 import { createHandler } from "graphql-http/lib/use/express";
 import expressPlayGround from "graphql-playground-middleware-express";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-import { loadFiles } from "@graphql-tools/load-files";
+import { schemas } from "./graphql/schemas/event.js";
+import { resolvers } from "./graphql/resolvers/event.js";
 
 const app = express();
 
@@ -15,11 +16,9 @@ app.all(
   "/graphql",
   createHandler({
     schema: makeExecutableSchema({
-      typeDefs: await loadFiles("src/graphql/schemas/**/*.graphql"),
+      typeDefs: schemas,
+      resolvers,
     }),
-    rootValue: {
-      event: () => "Hello! Qurban",
-    },
   })
 );
 
