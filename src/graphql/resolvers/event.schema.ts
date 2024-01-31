@@ -1,5 +1,9 @@
+import { events } from "../../model/event.model.js";
+
 export const resolvers = {
   Query: {
-    event: () => "Event 1",
+    event: (_parent: unknown, { id }: { id: string }) =>
+      events.find((ele) => ele._id === id),
+    events: () => events,
   },
 };
