@@ -1,7 +1,8 @@
 import express from "express";
 import { createHandler } from "graphql-http/lib/use/express";
-import { buildSchema } from "graphql";
 import expressPlayGround from "graphql-playground-middleware-express";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { loadFiles } from "@graphql-tools/load-files";
 
 const app = express();
 
@@ -13,13 +14,11 @@ const PORT =
 app.all(
   "/graphql",
   createHandler({
-    schema: buildSchema(`
-    type Query {
-      hello: String!
-    }
-    `),
+    schema: makeExecutableSchema({
+      typeDefs: await loadFiles("src/graphql/schemas/**/*.graphql"),
+    }),
     rootValue: {
-      hello: () => "Hello! Qurban",
+      event: () => "Hello! Qurban",
     },
   })
 );
