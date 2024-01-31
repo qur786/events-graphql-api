@@ -24,7 +24,7 @@ app.all(
   })
 );
 
-app.get("/graphiql", expressPlayGround.default({ endpoint: "/graphql" }));
+app.get("/playground", expressPlayGround.default({ endpoint: "/graphql" }));
 
 app.listen(3000, () => {
   console.log(`Server is listening on port ${PORT}`);
