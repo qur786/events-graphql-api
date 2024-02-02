@@ -35,7 +35,7 @@ app.get("/playground", expressPlayGround.default({ endpoint: "/graphql" }));
   `SIGTERM`,
 ].forEach((eventType) => {
   process.on(eventType, async () => await disconnect());
-}); // Clean up
+}); // Clean up Ref: https://stackoverflow.com/questions/14031763/doing-a-cleanup-action-just-before-node-js-exits
 
 connect(
   `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@events-graphql-api.29j6yzs.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
