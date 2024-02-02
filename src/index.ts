@@ -2,8 +2,10 @@ import express from "express";
 import { createHandler } from "graphql-http/lib/use/express";
 import expressPlayGround from "graphql-playground-middleware-express";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-import { schemas } from "./graphql/schemas/event.schema.js";
-import { resolvers } from "./graphql/resolvers/event.resolver.js";
+import { eventSchemas } from "./graphql/schemas/event.schema.js";
+import { userSchemas } from "./graphql/schemas/user.schema.js";
+import { userResolvers } from "./graphql/resolvers/user.resolver.js";
+import { eventResolvers } from "./graphql/resolvers/event.resolver.js";
 import "dotenv/config";
 import { connect, disconnect } from "mongoose";
 
@@ -18,8 +20,8 @@ app.all(
   "/graphql",
   createHandler({
     schema: makeExecutableSchema({
-      typeDefs: schemas,
-      resolvers,
+      typeDefs: [userSchemas, eventSchemas],
+      resolvers: [userResolvers, eventResolvers],
     }),
   })
 );
