@@ -1,34 +1,33 @@
-import { events } from "../../model/event.model.js";
-import type { Event } from "../../model/event.model.js";
+import { EventModal, type Event } from "../../model/event.model.js";
 
 type CreateEventInput = Exclude<Event, "_id">;
 
 export const resolvers = {
   Query: {
-    event: (_parent: unknown, { id }: { id: string }) =>
-      events.find((ele) => ele._id === id),
-    events: () => events,
+    event: async (_parent: unknown, { id }: { id: string }) => {
+      const event = await EventModal.findById(id);
+      console.log(event);
+      return event;
+    },
+    events: async () => {
+      const events = await EventModal.find();
+      console.log(events);
+      return events;
+    },
   },
   Mutation: {
-    createEvent: (
+    createEvent: async (
       _parent: unknown,
       { data: { date, description, title } }: { data: CreateEventInput }
     ) => {
-      const event: Event = {
-        _id: (
-          Number.parseInt(events[events.length - 1]?._id ?? 0) + 1
-        ).toString(),
-        title,
-        description,
+      const event = new EventModal({
         date,
-      };
-      events.push(event);
-      return event;
+        description,
+        title,
+      });
+      const result = await event.save();
+      console.log(result);
+      return result;
     },
   },
-  Event: {
-    title: (parent: Event) => {
-      return parent.title;
-    },
-  }, // Parent usage example
 };
