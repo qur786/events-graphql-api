@@ -1,4 +1,4 @@
-export const schemas = /* Graphql */ `
+export const eventSchemas = /* Graphql */ `
     type Event {
       _id: ID!
       title: String!
@@ -11,6 +11,7 @@ export const schemas = /* Graphql */ `
       title: String!
       description: String!
       date: String!
+      createdBy: ID!
     }
 
     type Query {
