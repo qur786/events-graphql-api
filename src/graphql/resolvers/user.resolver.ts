@@ -16,7 +16,6 @@ export const userResolvers = {
       { data: { email, password } }: { data: CreateUserInput }
     ) => {
       const existingUser = await UserModal.findOne({ email });
-      console.log(existingUser);
       if (existingUser) {
         throw new Error("User email already exists.");
       }
