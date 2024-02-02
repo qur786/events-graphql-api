@@ -5,7 +5,7 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import { schemas } from "./graphql/schemas/event.schema.js";
 import { resolvers } from "./graphql/resolvers/event.resolver.js";
 import "dotenv/config";
-import { connect } from "mongoose";
+import { connect, disconnect } from "mongoose";
 
 const app = express();
 
@@ -26,7 +26,20 @@ app.all(
 
 app.get("/playground", expressPlayGround.default({ endpoint: "/graphql" }));
 
-connect("")
+[
+  `exit`,
+  `SIGINT`,
+  `SIGUSR1`,
+  `SIGUSR2`,
+  `uncaughtException`,
+  `SIGTERM`,
+].forEach((eventType) => {
+  process.on(eventType, async () => await disconnect());
+}); // Clean up
+
+connect(
+  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@events-graphql-api.29j6yzs.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+)
   .then(() => {
     app.listen(3000, () => {
       console.log(`Server is listening on port ${PORT}`);
