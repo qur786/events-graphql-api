@@ -5,6 +5,7 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import { schemas } from "./graphql/schemas/event.schema.js";
 import { resolvers } from "./graphql/resolvers/event.resolver.js";
 import "dotenv/config";
+import { connect } from "mongoose";
 
 const app = express();
 
@@ -25,6 +26,12 @@ app.all(
 
 app.get("/playground", expressPlayGround.default({ endpoint: "/graphql" }));
 
-app.listen(3000, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
+connect("")
+  .then(() => {
+    app.listen(3000, () => {
+      console.log(`Server is listening on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
