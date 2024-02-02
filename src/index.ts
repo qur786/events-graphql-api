@@ -4,6 +4,7 @@ import expressPlayGround from "graphql-playground-middleware-express";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { schemas } from "./graphql/schemas/event.schema.js";
 import { resolvers } from "./graphql/resolvers/event.resolver.js";
+import "dotenv/config";
 
 const app = express();
 
