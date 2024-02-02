@@ -1,10 +1,11 @@
 import { Schema, model } from "mongoose";
 
 export interface Event {
-  _id: string;
+  _id: typeof Schema.Types.ObjectId;
   title: string;
   description: string;
   date: Date;
+  createdBy: typeof Schema.Types.ObjectId;
 }
 
 const EventSchema = new Schema<Event>({
@@ -19,6 +20,11 @@ const EventSchema = new Schema<Event>({
   title: {
     type: String,
     required: true,
+  },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
   },
 });
 

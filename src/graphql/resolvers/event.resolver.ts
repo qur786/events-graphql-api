@@ -16,12 +16,15 @@ export const resolvers = {
   Mutation: {
     createEvent: async (
       _parent: unknown,
-      { data: { date, description, title } }: { data: CreateEventInput }
+      {
+        data: { date, description, title, createdBy },
+      }: { data: CreateEventInput }
     ) => {
       const event = new EventModal({
         date,
         description,
         title,
+        createdBy,
       });
       const result = await event.save();
       return result;

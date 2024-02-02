@@ -4,6 +4,7 @@ export const schemas = /* Graphql */ `
       title: String!
       description: String!
       date: String!
+      createdBy: ID!
     }
 
     input CreateEventInput {
