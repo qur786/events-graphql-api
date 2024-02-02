@@ -1,15 +1,25 @@
+import { Schema, model } from "mongoose";
+
 export interface Event {
   _id: string;
   title: string;
   description: string;
-  date: string;
+  date: Date;
 }
 
-export const events: Event[] = [
-  {
-    _id: "1",
-    title: "Event 1",
-    description: "lorem ipsum",
-    date: "31-01-2024",
+const EventSchema = new Schema<Event>({
+  date: {
+    type: Date,
+    required: true,
   },
-];
+  description: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+});
+
+export const EventModal = model("Event", EventSchema);
