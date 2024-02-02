@@ -6,12 +6,10 @@ export const resolvers = {
   Query: {
     event: async (_parent: unknown, { id }: { id: string }) => {
       const event = await EventModal.findById(id);
-      console.log(event);
       return event;
     },
     events: async () => {
       const events = await EventModal.find();
-      console.log(events);
       return events;
     },
   },
@@ -26,7 +24,6 @@ export const resolvers = {
         title,
       });
       const result = await event.save();
-      console.log(result);
       return result;
     },
   },
