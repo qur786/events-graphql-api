@@ -7,11 +7,11 @@ type CreateEventInput = Omit<Event, "_id">;
 export const eventResolvers = {
   Query: {
     event: async (_parent: unknown, { id }: { id: string }) => {
-      const event = await EventModal.findById(id);
+      const event = await EventModal.findById(id).populate("createdBy");
       return event;
     },
     events: async () => {
-      const events = await EventModal.find();
+      const events = await EventModal.find().populate("createdBy");
       return events;
     },
   },
@@ -35,7 +35,7 @@ export const eventResolvers = {
         title,
         createdBy,
       });
-      const result = await event.save();
+      const result = await (await event.save()).populate("createdBy");
       user.events.push(result.id);
       await user.save();
       return result;

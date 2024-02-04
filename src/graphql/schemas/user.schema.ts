@@ -3,7 +3,7 @@ export const userSchemas = /* Graphql */ `
       _id: ID!
       email: String!
       password: String
-      events: [ID!]!
+      events: [Event!]!
     }
 
     input CreateUserInput {

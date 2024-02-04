@@ -6,7 +6,7 @@ type CreateUserInput = Omit<User, "_id" | "events">;
 export const userResolvers = {
   Query: {
     users: async () => {
-      const users = await UserModal.find();
+      const users = await UserModal.find().populate("events");
       return users;
     },
   },

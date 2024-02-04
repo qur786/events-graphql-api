@@ -4,7 +4,7 @@ export const eventSchemas = /* Graphql */ `
       title: String!
       description: String!
       date: String!
-      createdBy: ID!
+      createdBy: User!
     }
 
     input CreateEventInput {

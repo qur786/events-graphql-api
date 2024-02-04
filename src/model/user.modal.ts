@@ -1,10 +1,11 @@
 import { Schema, model } from "mongoose";
+import type { Event } from "./event.model.js";
 
 export interface User {
   _id: typeof Schema.Types.ObjectId;
   email: string;
   password: string;
-  events: (typeof Schema.Types.ObjectId)[];
+  events: Event[];
 }
 
 const UserSchema = new Schema<User>({
