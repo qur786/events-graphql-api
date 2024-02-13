@@ -1,4 +1,4 @@
-export const eventSchemas = /* Graphql */ `
+export const bookingSchemas = /* Graphql */ `
     enum BookingStatus {
         COMPLETED
         CANCELLED
@@ -6,8 +6,8 @@ export const eventSchemas = /* Graphql */ `
 
     type Booking {
       _id: ID!
-      createdBy: ID!
-      event: ID!
+      createdBy: User!
+      event: Event!
       status: BookingStatus!
       createdAt: String!
       updatedAt: String!
@@ -16,7 +16,7 @@ export const eventSchemas = /* Graphql */ `
     input BookEventInput {
       event: ID!
       createdBy: ID!
-      status: BookingStatus!
+      status: BookingStatus
     }
 
     type Query {
