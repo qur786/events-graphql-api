@@ -1,3 +1,4 @@
+import { isValidObjectId } from "mongoose";
 import {
   Booking,
   BookingModel,
@@ -25,6 +26,12 @@ export const bookingResolvers = {
   },
   Mutation: {
     bookEvent: async (_parent: unknown, args: { data: BookEventInput }) => {
+      if (
+        !isValidObjectId(args.data.createdBy) ||
+        !isValidObjectId(args.data.event)
+      ) {
+        throw new Error("Either User ID or Event ID is Invalid.");
+      }
       const booking = new BookingModel(args.data);
       const savedBooking = await booking.save();
       await savedBooking.populate("event");
@@ -32,6 +39,10 @@ export const bookingResolvers = {
       return savedBooking.toObject();
     },
     cancelBooking: async (_parent: unknown, args: { eventID: string }) => {
+      if (!isValidObjectId(args.eventID)) {
+        throw new Error("Event ID is invalid.");
+      }
+
       await BookingModel.updateMany(
         { event: { _id: args.eventID } },
         { $set: { status: BookingStatus.CANCELLED } }
