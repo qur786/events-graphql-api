@@ -4,7 +4,7 @@
   "type": "module",
   "license": "Unlicense",
   "scripts": {
-    "build": "tsc --build",
+    "build": "set NODE_ENV=\"production\" && tsc --build",
     "pretty": "prettier src/**/*.{ts,js} --write",
     "lint": "eslint --ext .ts src/ --fix",
     "start": "concurrently --kill-others --names \"tsc,nodemon\" \"tsc --watch\" \"nodemon dist/index.js\""

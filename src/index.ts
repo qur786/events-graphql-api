@@ -10,6 +10,7 @@ import "dotenv/config";
 import { connect, disconnect } from "mongoose";
 import { bookingSchemas } from "./graphql/schemas/booking.schema.js";
 import { bookingResolvers } from "./graphql/resolvers/booking.resolver.js";
+import { createTerminalLink } from "./utils.js";
 
 const app = express();
 
@@ -47,6 +48,14 @@ connect(
   .then(() => {
     app.listen(3000, () => {
       console.log(`Server is listening on port ${PORT}`);
+      if (process.env.NODE_ENV !== "production") {
+        const playground = createTerminalLink(
+          "http://localhost:3000/playground",
+          "http://localhost:3000/playground"
+        );
+
+        console.log(`Access graphql playground at: ${playground}`);
+      }
     });
   })
   .catch((err) => {
