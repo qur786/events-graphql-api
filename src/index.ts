@@ -8,6 +8,8 @@ import { userResolvers } from "./graphql/resolvers/user.resolver.js";
 import { eventResolvers } from "./graphql/resolvers/event.resolver.js";
 import "dotenv/config";
 import { connect, disconnect } from "mongoose";
+import { bookingSchemas } from "./graphql/schemas/booking.schema.js";
+import { bookingResolvers } from "./graphql/resolvers/booking.resolver.js";
 
 const app = express();
 
@@ -20,8 +22,8 @@ app.all(
   "/graphql",
   createHandler({
     schema: makeExecutableSchema({
-      typeDefs: [userSchemas, eventSchemas],
-      resolvers: [userResolvers, eventResolvers],
+      typeDefs: [userSchemas, eventSchemas, bookingSchemas],
+      resolvers: [userResolvers, eventResolvers, bookingResolvers],
     }),
   })
 );
