@@ -1,6 +1,8 @@
-import { BookingModel } from "../../model/booking.model.js";
+import { Booking, BookingModel } from "../../model/booking.model.js";
 
-export const userResolvers = {
+type BookEventInput = Pick<Booking, "createdBy" | "event" | "status">;
+
+export const bookingResolvers = {
   Query: {
     bookings: async () => {
       const bookings = await BookingModel.find()
@@ -16,5 +18,13 @@ export const userResolvers = {
       return bookings;
     },
   },
-  Mutation: {},
+  Mutation: {
+    bookEvent: async (_parent: unknown, { data }: { data: BookEventInput }) => {
+      const booking = new BookingModel(data);
+      const savedBooking = await booking.save();
+      await savedBooking.populate("event");
+      await savedBooking.populate("createdBy");
+      return savedBooking.toObject();
+    },
+  },
 };
