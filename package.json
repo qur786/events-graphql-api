@@ -4,7 +4,7 @@
   "type": "module",
   "license": "Unlicense",
   "scripts": {
-    "build": "set NODE_ENV=\"production\" && tsc --build",
+    "build": "cross-env NODE_ENV=\"production\" && tsc --build",
     "pretty": "prettier src/**/*.{ts,js} --write",
     "lint": "eslint --ext .ts src/ --fix",
     "start": "concurrently --kill-others --names \"tsc,nodemon\" \"tsc --watch\" \"nodemon dist/index.js\""
@@ -17,6 +17,7 @@
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
     "nodemon": "^3.0.3",
     "prettier": "^3.2.4",
