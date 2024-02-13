@@ -25,6 +25,6 @@ export const bookingSchemas = /* Graphql */ `
 
     type Mutation {
       bookEvent(data: BookEventInput!): Booking!
-      cancelEvent(eventID: ID!): Event
+      cancelBooking(eventID: ID!): Event
     }
 `;

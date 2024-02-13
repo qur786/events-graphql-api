@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const BookingStatus = {
+export const BookingStatus = {
   COMPLETED: "COMPLETED",
   CANCELLED: "CANCELLED",
 } as const;
