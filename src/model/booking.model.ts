@@ -16,31 +16,26 @@ export interface Booking {
   status: BookingStatus;
 }
 
-const BookingSchema = new Schema<Booking>({
-  createdBy: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: "User",
+const BookingSchema = new Schema<Booking>(
+  {
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    event: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Event",
+    },
+    status: {
+      type: String,
+      enum: [BookingStatus.CANCELLED, BookingStatus.COMPLETED],
+      default: BookingStatus.COMPLETED,
+      required: true,
+    },
   },
-  event: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: "Event",
-  },
-  createdAt: {
-    type: Date,
-    required: true,
-  },
-  updatedAt: {
-    type: Date,
-    required: true,
-  },
-  status: {
-    type: String,
-    enum: [BookingStatus.CANCELLED, BookingStatus.COMPLETED],
-    default: BookingStatus.COMPLETED,
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 
 export const BookingModel = model("Booking", BookingSchema);
