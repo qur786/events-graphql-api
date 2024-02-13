@@ -1,17 +1,17 @@
 import { isValidObjectId } from "mongoose";
-import { EventModal, type Event } from "../../model/event.model.js";
-import { UserModal } from "../../model/user.modal.js";
+import { EventModel, type Event } from "../../model/event.model.js";
+import { UserModel } from "../../model/user.modal.js";
 
 type CreateEventInput = Omit<Event, "_id">;
 
 export const eventResolvers = {
   Query: {
     event: async (_parent: unknown, { id }: { id: string }) => {
-      const event = await EventModal.findById(id).populate("createdBy");
+      const event = await EventModel.findById(id).populate("createdBy");
       return event;
     },
     events: async () => {
-      const events = await EventModal.find().populate("createdBy");
+      const events = await EventModel.find().populate("createdBy");
       return events;
     },
   },
@@ -25,11 +25,11 @@ export const eventResolvers = {
       if (isValidObjectId(createdBy) === false) {
         throw new Error("Invalid User ID.");
       }
-      const user = await UserModal.findById(createdBy);
+      const user = await UserModel.findById(createdBy);
       if (!user) {
         throw new Error("User does not exist.");
       }
-      const event = new EventModal({
+      const event = new EventModel({
         date,
         description,
         title,

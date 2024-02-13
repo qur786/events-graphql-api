@@ -1,12 +1,12 @@
 import { hash } from "bcrypt";
-import { UserModal, type User } from "../../model/user.modal.js";
+import { UserModel, type User } from "../../model/user.modal.js";
 
 type CreateUserInput = Omit<User, "_id" | "events">;
 
 export const userResolvers = {
   Query: {
     users: async () => {
-      const users = await UserModal.find().populate("events");
+      const users = await UserModel.find().populate("events");
       return users;
     },
   },
@@ -15,12 +15,12 @@ export const userResolvers = {
       _parent: unknown,
       { data: { email, password } }: { data: CreateUserInput }
     ) => {
-      const existingUser = await UserModal.findOne({ email });
+      const existingUser = await UserModel.findOne({ email });
       if (existingUser) {
         throw new Error("User email already exists.");
       }
       const hashedPassword = await hash(password, 10);
-      const user = new UserModal({
+      const user = new UserModel({
         email,
         password: hashedPassword,
       });
